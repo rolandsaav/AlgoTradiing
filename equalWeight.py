@@ -109,7 +109,6 @@ final_dataframe = pd.concat([final_dataframe, series.to_frame().T])
 testDf = pd.DataFrame([[0, 1, 2, 3]], columns=my_columns)
 newDf = pd.DataFrame([[10, 12, 14, 15]], columns=my_columns)
 newDf = pd.concat([testDf, newDf], axis=0, ignore_index=True)
-newDf
 
 
 # ## Looping Through The Tickers in Our List of Stocks
@@ -139,7 +138,6 @@ print("done")
 # In[64]:
 
 
-final_df
 
 
 # ## Using Batch API Calls to Improve Performance
@@ -182,7 +180,6 @@ for symbol_string in symbol_strings:
         final_df = pd.concat([final_df, newDf], axis=0, ignore_index=True)
     time.sleep(0.3)
         
-final_df
 
 
 # ## Calculating the Number of Shares to Buy
@@ -228,7 +225,6 @@ for i in range(0, len(final_df.index)):
     price = final_df.loc[i, 'Stock Price']
     shares = math.floor(position_size/price)
     final_df.loc[i, 'Number of Shares to Buy'] = shares
-final_df
 
 
 # ## Formatting Our Excel Output

@@ -41,7 +41,6 @@ from secret import IEX_CLOUD_API_TOKEN
 symbol = 'AAPL'
 api_url = f'https://api.iex.cloud/v1/data/core/quote/{symbol}?token={IEX_CLOUD_API_TOKEN}'
 data = requests.get(api_url).json()[0]
-data
 
 
 # ## Parsing Our API Call
@@ -53,7 +52,6 @@ data
 
 
 ratio = data['peRatio']
-ratio
 
 
 # ## Executing A Batch API Call & Building Our DataFrame
@@ -125,7 +123,6 @@ dataframe = dataframe[dataframe['Price-to-Earnings Ratio'] > 0]
 dataframe.reset_index(inplace=True)
 dataframe = dataframe[:50]
 len(dataframe) 
-dataframe
 
 
 # ## Calculating the Number of Shares to Buy
@@ -175,7 +172,6 @@ positionSize = portfolioSize/len(dataframe.index)
 for row in dataframe.index:
     dataframe.loc[row, 'Number of Shares to Buy'] = math.floor(positionSize/dataframe.loc[row, 'Price'])
 
-dataframe
 
 
 # ## Building a Better (and More Realistic) Value Strategy
@@ -311,7 +307,6 @@ print('done')
 # In[62]:
 
 
-rvdf
 
 
 # Dealing with missing data is an important topic in data science.
@@ -367,7 +362,6 @@ for metric in metrics.keys():
         value = rvdf.loc[row, metric]
         rvdf.loc[row, metrics[metric]] = stats.percentileofscore( rvdf[metric], value)/100
 
-rvdf
 
 
 # ## Calculating the RV Score
@@ -388,7 +382,6 @@ for row in rvdf.index:
         values.append(rvdf.loc[row, metrics[metric]])
     rvdf.loc[row, "RV Score"] = mean(values)
 
-rvdf
 
 
 # ## Selecting the 50 Best Value Stocks¶
@@ -401,7 +394,6 @@ rvdf
 rvdf.sort_values('RV Score', ascending = False, inplace=True)
 rvdf = rvdf[:50]
 rvdf.reset_index(drop = True, inplace = True)
-rvdf
 
 
 # ## Calculating the Number of Shares to Buy

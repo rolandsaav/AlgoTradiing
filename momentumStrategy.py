@@ -47,7 +47,6 @@ from secret import IEX_CLOUD_API_TOKEN
 symbol = "AAPL"
 api_url = f'https://api.iex.cloud/v1/data/core/advanced_stats/{symbol}?token={IEX_CLOUD_API_TOKEN}'
 data = requests.get(api_url).json()[0]
-data
 
 
 # ## Parsing Our API Call
@@ -106,7 +105,6 @@ for symbol_string in symbol_strings:
         dataframe = pd.concat([dataframe, row], axis=0, ignore_index=True)
     time.sleep(0.4)
 
-dataframe
 
 
 # ## Removing Low-Momentum Stocks
@@ -122,7 +120,6 @@ dataframe
 dataframe.sort_values('One-Year Price Return', ascending = False, inplace=True)
 dataframe = dataframe[:50]
 dataframe.reset_index(inplace=True)
-dataframe
 
 
 # ## Calculating the Number of Shares to Buy
@@ -161,7 +158,6 @@ positionSize = portfolioSize/len(dataframe.index)
 for i in range(len(dataframe)):
     dataframe.loc[i, "Number of Shares to Buy"] = math.floor(positionSize/dataframe.loc[i, 'Price'])
 
-dataframe
 
 
 # ## Building a Better (and More Realistic) Momentum Strategy
@@ -241,7 +237,6 @@ for row in hqmDataframe.index:
         percentile = stats.percentileofscore(hqmDataframe[columnString][~np.isnan(hqmDataframe[columnString])], hqmDataframe.loc[row, columnString])/100
         hqmDataframe.loc[row, f'{period} Return Percentile'] = percentile
 
-hqmDataframe
 
 
 # ## Calculating the HQM Score
@@ -262,7 +257,6 @@ for row in hqmDataframe.index:
     for period in timePeriods:
         momentumPercentiles.append(hqmDataframe.loc[row, f'{period} Return Percentile'])
     hqmDataframe.loc[row, "HQM Score"] = mean(momentumPercentiles)
-hqmDataframe
     
 
 
@@ -275,7 +269,6 @@ hqmDataframe
 
 hqmDataframe.sort_values("HQM Score", ascending=False, inplace=True)
 hqmDataframe = hqmDataframe[:50]
-hqmDataframe
 
 
 # ## Calculating the Number of Shares to Buy
@@ -295,7 +288,6 @@ positionSize = portfolioSize/len(hqmDataframe.index)
 for i in hqmDataframe.index:
     hqmDataframe.loc[i, "Number of Shares to Buy"] = math.floor(positionSize/hqmDataframe.loc[i, "Price"])
 
-hqmDataframe
 
 
 # ## Formatting Our Excel Output
