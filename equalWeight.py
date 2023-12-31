@@ -39,7 +39,7 @@ import time
 # In[2]:
 
 
-stocks = pd.read_csv('sp_500_stocks.csv')
+stocks = pd.read_csv('constituents.csv')
 
 
 # ## Acquiring an API Token

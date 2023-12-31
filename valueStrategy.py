@@ -26,7 +26,7 @@ import math
 # In[2]:
 
 
-stocks = pd.read_csv('sp_500_stocks.csv')
+stocks = pd.read_csv('constituents.csv')
 
 
 # ## Making Our First API Call
